@@ -3,216 +3,159 @@
 
 
     <head>
-   
-    <meta charset="utf-8" />
-    <meta name="format-detection" content="telephone=no" />
-    <meta name="msapplication-tap-highlight" content="no" />
-    <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width" />
-    <meta http-equiv="Content-Security-Policy" content="
-    default-src *; 
-    style-src * 'unsafe-inline'; 
-    script-src * 'unsafe-inline'; 
-    media-src *; img-src * data:; 
-" />
-    <!-- This is a wide open CSP declaration. To lock this down for production, see below. -->
-    <!-- Good default declaration:
-    * gap: is required only on iOS (when using UIWebView) and is needed for JS->native communication
-    * https://ssl.gstatic.com is required only on Android and is needed for TalkBack to function properly
-    * Disables use of eval() and inline scripts in order to mitigate risk of XSS vulnerabilities. To change this:
-        * Enable inline JS: add 'unsafe-inline' to default-src
-        * Enable eval(): add 'unsafe-eval' to default-src
-    * Create your own at http://cspisawesome.com
-    -->
-    <!-- <meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: 'unsafe-inline' https://ssl.gstatic.com; style-src 'self' 'unsafe-inline'; media-src *" /> -->
-		
-		  
+
+        <meta charset="utf-8" />
+        <meta name="format-detection" content="telephone=no" />
+        <meta name="msapplication-tap-highlight" content="no" />
+
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <!--        <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width" />-->
+        <meta http-equiv="Content-Security-Policy" content="
+              default-src *; 
+              style-src * 'unsafe-inline'; 
+              script-src * 'unsafe-inline'; 
+              media-src *; img-src * data:; 
+              " />
+
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+
+        <!-- This is a wide open CSP declaration. To lock this down for production, see below. -->
+        <!-- Good default declaration:
+        * gap: is required only on iOS (when using UIWebView) and is needed for JS->native communication
+        * https://ssl.gstatic.com is required only on Android and is needed for TalkBack to function properly
+        * Disables use of eval() and inline scripts in order to mitigate risk of XSS vulnerabilities. To change this:
+            * Enable inline JS: add "unsafe-inline" to default-src
+            * Enable eval(): add "unsafe-eval" to default-src
+        * Create your own at http://cspisawesome.com
+        -->
+        <!-- <meta http-equiv="Content-Security-Policy" content="default-src "self" data: gap: "unsafe-inline" https://ssl.gstatic.com; style-src "self" "unsafe-inline"; media-src *" /> -->
+
         <!--      <link rel="stylesheet" type="text/css" href="./css/boot.css"/>-->
-		 <link rel="stylesheet" type="text/css" href="css/style.css"/>		 
+        <script src="cordova.js"></script>
+        <link rel="stylesheet" type="text/css" href="css/style.css"/>		 
         <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
-     
-       <!--      <link href="./css/navbar-fixed-top.css" rel="stylesheet">-->
+        <link href="css/bootstrap.css" rel="stylesheet" type="text/css"/>
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.min.js"></script>
+        <link href="css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+        <!--      <link href="./css/navbar-fixed-top.css" rel="stylesheet">-->
     </head>
-    <body >
-	 <div class="app">
-        <div class="main_container">
-            <div class="navigator">
-                <ul>
-                    <li>
-                        <span class="fa fa-navicon"></span>   
-                    </li>
-                    <li>
-                        <span class="fa fa-angle-left"></span>   
-                    </li>
-                    <li>
-                        <span class="fa fa-remove"></span>   
-                    </li>
-                    
-                    <li class="appName">
-                        <h1>Shanti Sansar</h1>
-                    </li>
+    <body ng-app="rgyan"  class="container-fluid" >
+        <div class="app row " ng-controller="rgyanCotrl" >
+            <div class="main_container">
+                <div class="navigator col-lg-12 col-sm-12 col-xs-12 ">
+                    <ul class="col-lg-12 col-sm-12 col-xs-12">
+                        <li ng-click="backScreen()">
+                            <span class="fa {{homeIcon}}"></span>   
+                        </li>
+                        <li class="language">
+                            <span >En</span>   
+                        </li>
+                        <li class="language">
+                            <span ng-click="close_aap()"  >Hi</span>   
+                        </li>
 
-                </ul>
-            </div> 
+                        <li class="appName">
+                            <h1>{{app_title}}</h1>
+                        </li>
 
-            <div class="main_god_container">
-                <div class="godDiv">
-                    <img src="http://3.bp.blogspot.com/-IoQVrlcxZqI/Uf8vBgpvzUI/AAAAAAAASuw/gmMB16ymymw/s1600/Lord+Shiv+Shankar+Photos+-+40.jpg"/>
-                    <h1 class="godTitle">Shiv, Source of Power</h1>
+                    </ul>
+                </div> 
+
+                <div class=" {{MainCatStatus}}">
+
+                    <ul class="main_category">
+                        <!--                        {{MainCategory}}-->
+                        <li ng-repeat="cat in MainCategory" >
+                            <h1 ng-click="show_sub_category(cat.cat_id)"  style="background-image: url(img/{{cat.offline_bg_img}})">{{cat.name}}</h1> 
+                            <!--                            <h1 style=" background-image: url('img/image-2.png');">Mantra</h1> 
+                                                        <h1 style=" background-image: url('img/image-3.png');">Varat</h1> 
+                                                        <h1 style=" background-image: url('img/image-4.png');">Vandana</h1> -->
+                        </li>
+                    </ul>
                 </div>
 
+                <div class="main_god_container col-lg-12 {{MainSubCatStatus}}  ">
 
-                <div class="godDiv">
-                    <img src="http://3.bp.blogspot.com/-IoQVrlcxZqI/Uf8vBgpvzUI/AAAAAAAASuw/gmMB16ymymw/s1600/Lord+Shiv+Shankar+Photos+-+40.jpg"/>
-                    <h1 class="godTitle">Shiv, Source of Power</h1>
+                    <!--                    sub category-->
+                    <div class="godDiv col-xs-6" ng-repeat="sub_cat in MainSubCategory">
+                        <div ng-click="show_post(sub_cat.cat_id)">
+                            <img src="img/{{sub_cat.offline_bg_img}}"/>
+                            <h1 class="godTitle">{{sub_cat.name}}</h1>
+                        </div>
+                    </div>
+
+
                 </div>
 
+                <audio  class="player" controls ="loop" >
+                    <source src="mp3/monjo.mp3" type="audio/mpeg" >
+                    Your browser does not support the <code>audio</code> tag.
+                </audio>
 
-                <div class="godDiv">
-                    <img src="http://3.bp.blogspot.com/-IoQVrlcxZqI/Uf8vBgpvzUI/AAAAAAAASuw/gmMB16ymymw/s1600/Lord+Shiv+Shankar+Photos+-+40.jpg"/>
+                <div class="MantraContainer {{PostStatus}} ">
 
-                    <h1 class="godTitle">Shiv, Source of Power</h1>
+                    <!--                    <div ng-repeat="x in mantra">
+                                            {{x["mantra"]}}
+                                        </div>-->
+
+                    <div class="mantra" ng-repeat="posts in Post">
+                        <div  ng-click="show_post_desc(posts.post_des_id)">
+                            <img src="img/{{posts.offline_thumb_img}}"/>
+                            <h1 class='postTitle'>{{posts.post_title}}</h1>
+                            <p>
+                                {{posts.post_desc}}
+
+                                
+                            </p>
+                            
+                            <span class="readMore">Read More</span> <span class="fa fa-play-circle "></span>
+                        </div>
+                    </div>
+
+
                 </div>
-
-
-                <div class="godDiv">
-                    <img src="http://3.bp.blogspot.com/-IoQVrlcxZqI/Uf8vBgpvzUI/AAAAAAAASuw/gmMB16ymymw/s1600/Lord+Shiv+Shankar+Photos+-+40.jpg"/>
-
-                    <h1 class="godTitle">Shiv, Source of Power</h1>
-                </div>
-
-
-                <div class="godDiv">
-                    <img src="http://3.bp.blogspot.com/-IoQVrlcxZqI/Uf8vBgpvzUI/AAAAAAAASuw/gmMB16ymymw/s1600/Lord+Shiv+Shankar+Photos+-+40.jpg"/>
-
-                    <h1 class="godTitle">Shiv, Source of Power</h1>
-                </div>
-            </div>
+<!--                <button type="button" ng-click="DownloadDataBase()">Download Database</button>
+                <button type="button" ng-click="ImportDataInTables()">Import In tables</button>
+                <button type="button" ng-click="appInit()">App Init In tables</button>-->
 
 
 
-            <div class="MantraContainer">
+                <div class="MantraDetailContainer  {{PostDescStatus}}">
+<!--                    {{PostDesc}}-->
+                    <div class="mantra " ng-repeat="post in PostDesc">
+                        
+                        <h1 class="MantraTitle">
+                            {{post.post_title}}
+                        </h1>
+                        <p>
+                            {{post.post_desc}}
 
-                <div class="mantra">
-                    <p>
-                        मंदाकिनी सलिल चंदन चर्चिताय नंदीश्वर प्रमथनाथ महेश्वराय
-                        मंदारपुष्प बहुपुष्प सुपूजिताय तस्मे म काराय नम: शिवाय:॥
-                        <br>
-                        Mandakini salila candana carcitaya nandisvara pramathanatha mahesvaraya
-                        mandarapuspa bahupuspa supujitaya tasme ma karaya namah shivaya
-                    </p>
-                </div>
+                        </p>
+                        <span class="fa fa-play-circle songIcon"></span>
 
 
-                <div class="mantra">
-                    <p>
-                        मंदाकिनी सलिल चंदन चर्चिताय नंदीश्वर प्रमथनाथ महेश्वराय
-                        मंदारपुष्प बहुपुष्प सुपूजिताय तस्मे म काराय नम: शिवाय:॥
-                        <br>
-                        Mandakini salila candana carcitaya nandisvara pramathanatha mahesvaraya
-                        mandarapuspa bahupuspa supujitaya tasme ma karaya namah shivaya
-                    </p>
-                </div>
+                    </div>
 
-                <div class="mantra">
-                    <p>
-                        मंदाकिनी सलिल चंदन चर्चिताय नंदीश्वर प्रमथनाथ महेश्वराय
-                        मंदारपुष्प बहुपुष्प सुपूजिताय तस्मे म काराय नम: शिवाय:॥
-                        <br>
-                        Mandakini salila candana carcitaya nandisvara pramathanatha mahesvaraya
-                        mandarapuspa bahupuspa supujitaya tasme ma karaya namah shivaya
-                    </p>
-                </div>
-
-                <div class="mantra">
-                    <p>
-                        मंदाकिनी सलिल चंदन चर्चिताय नंदीश्वर प्रमथनाथ महेश्वराय
-                        मंदारपुष्प बहुपुष्प सुपूजिताय तस्मे म काराय नम: शिवाय:॥
-                        <br>
-                        Mandakini salila candana carcitaya nandisvara pramathanatha mahesvaraya
-                        mandarapuspa bahupuspa supujitaya tasme ma karaya namah shivaya
-                    </p>
-                </div>
-
-                <div class="mantra">
-                    <p>
-                        मंदाकिनी सलिल चंदन चर्चिताय नंदीश्वर प्रमथनाथ महेश्वराय
-                        मंदारपुष्प बहुपुष्प सुपूजिताय तस्मे म काराय नम: शिवाय:॥
-                        <br>
-                        Mandakini salila candana carcitaya nandisvara pramathanatha mahesvaraya
-                        mandarapuspa bahupuspa supujitaya tasme ma karaya namah shivaya
-                    </p>
-                </div>
-
-                <div class="mantra">
-                    <p>
-                        मंदाकिनी सलिल चंदन चर्चिताय नंदीश्वर प्रमथनाथ महेश्वराय
-                        मंदारपुष्प बहुपुष्प सुपूजिताय तस्मे म काराय नम: शिवाय:॥
-                        <br>
-                        Mandakini salila candana carcitaya nandisvara pramathanatha mahesvaraya
-                        mandarapuspa bahupuspa supujitaya tasme ma karaya namah shivaya
-                    </p>
-                </div>
-
-                <div class="mantra">
-                    <p>
-                        मंदाकिनी सलिल चंदन चर्चिताय नंदीश्वर प्रमथनाथ महेश्वराय
-                        मंदारपुष्प बहुपुष्प सुपूजिताय तस्मे म काराय नम: शिवाय:॥
-                        <br>
-                        Mandakini salila candana carcitaya nandisvara pramathanatha mahesvaraya
-                        mandarapuspa bahupuspa supujitaya tasme ma karaya namah shivaya
-                    </p>
-                </div>
-
-                <div class="mantra">
-                    <p>
-                        मंदाकिनी सलिल चंदन चर्चिताय नंदीश्वर प्रमथनाथ महेश्वराय
-                        मंदारपुष्प बहुपुष्प सुपूजिताय तस्मे म काराय नम: शिवाय:॥
-                        <br>
-                        Mandakini salila candana carcitaya nandisvara pramathanatha mahesvaraya
-                        mandarapuspa bahupuspa supujitaya tasme ma karaya namah shivaya
-                    </p>
                 </div>
 
 
             </div>
 
-
-            <div class="MantraDetailContainer">
-
-                <div class="mantra">
-                    <h1 class="MantraTitle">
-                        मंदाकिनी सलिल चंदन  Mandakini salila candana
-                    </h1>
-                    <p>
-                        मंदाकिनी सलिल चंदन चर्चिताय नंदीश्वर प्रमथनाथ महेश्वराय
-                        मंदारपुष्प बहुपुष्प सुपूजिताय तस्मे म काराय नम: शिवाय:॥
-                        <br>
-                        Mandakini salila candana carcitaya nandisvara pramathanatha mahesvaraya
-                        mandarapuspa bahupuspa supujitaya tasme ma karaya namah shivaya
-                         <br>
-                        सौराष्ट्रदेशे विशदेऽतिरम्ये ज्योतिर्मयं चन्द्रकलावतंसम्।
-                        भक्तिप्रदानाय कृपावतीर्णं तं सोमनाथं शरणं प्रपद्ये ।।
-                        कावेरिकानर्मदयो: पवित्रे समागमे सज्जनतारणाय।
-                        सदैव मान्धातृपुरे वसन्तमोंकारमीशं शिवमेकमीडे।।
-                         <br>
-                        Saurastradese visadetiramye jyotirmayam candrakalavatansam.
-                        Bhaktipradanaya krpavatirnam tan somanatham saranam prapadye
-                        Kaverikanarmadayoh Pavitre samagame sajjanataranaya
-                        Sadaiva mandhatrpure vasantamonkaramisam sivamekamide.
-                    </p>
-                </div>
-
-            </div>
 
 
         </div>
 
-   </div>
+
+
     </body>
 </html>
 
-<script type="text/javascript" src="cordova.js"></script>
-    <script type="text/javascript" src="js/index.js"></script>
-    <script type="text/javascript">
-        app.initialize();
-    </script>
+
+<script type="text/javascript" src="js/index.js"></script>
+<!--<script type="text/javascript" src="js/syncro.js"></script>-->
+<!--  {{CreateDatabase()}}-->
+<script type="text/javascript" src="js/setting.js"></script>
+
